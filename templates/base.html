@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jacob Cullen Blog</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}">Jacob Cullen Blog</a></h1>
+        <hr>
+    </header>
+    {% if user.is_authenticated %}
+        <p>Xush kelibsiz, {{ user.username }}!</p>
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <a href="" onclick='this.parentNode.submit(); return false;'>Saytdan chiqish</a>
+</form>
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}">Saytga kirish</a> |
+            <a href="{% url 'signup' %}">Ro'yhatdan o'tish</a>
+        </p>
+    {% endif %}
+    <div>
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <footer>
+        <hr>
+        <h3><a href="{% url 'post_new' %}" style="color: black">Yangi post qo'shish</a></h3>
+    </footer>
+</body>
+</html>
